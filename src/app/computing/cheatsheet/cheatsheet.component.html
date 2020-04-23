@@ -31,7 +31,7 @@
     <div class="row">
       <i class="fas fa-search" aria-hidden="true"></i>
       <input
-        class="form-control"
+        class="form-control search"
         type="text"
         placeholder="Search"
         aria-label="Search"
@@ -197,7 +197,7 @@
                 'mt-2'
               ]"
               [style.display]="
-                clickedSheet.titre === 'Supprimé' ? 'none' : 'box'
+                clickedSheet.titre === 'Supprimé' ? 'none' : 'inline'
               "
             ></i>
           </h5>
@@ -215,7 +215,10 @@
           class="modal-body"
           [style.display]="clickedSheet.titre === 'Supprimé' ? 'none' : 'flex'"
         >
-          <div [innerHTML]="clickedSheet.description"></div>
+          <div
+            class="contentInside"
+            [innerHTML]="clickedSheet.description"
+          ></div>
         </div>
         <div
           class="modal-footer"
@@ -335,6 +338,7 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
+              data-target="modal"
             >
               Close
             </button>
@@ -380,6 +384,7 @@
             class="btn btn-danger"
             (click)="onDel()"
             data-dismiss="modal"
+            data-target="modal"
           >
             Delete
           </button>

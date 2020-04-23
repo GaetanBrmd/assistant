@@ -108,7 +108,12 @@ export class CheatsheetComponent implements OnInit {
   onDel() {
     //alert('On supprime !');
     this.sheetService.deleteSheet(this.clickedSheet._id);
-    this.clickedSheet = new Sheet(-1, 'Supprimé', '', 'angular');
+    this.clickedSheet = new Sheet(
+      -1,
+      'Supprimé',
+      'Cet élément a été supprimé !',
+      'angular'
+    );
   }
 
   onAddType(type: string) {

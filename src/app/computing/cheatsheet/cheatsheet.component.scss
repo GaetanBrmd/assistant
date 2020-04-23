@@ -22,10 +22,14 @@ h1 {
 
 .buttons {
   margin: 20px;
+}
 
-  input {
-    margin-top: 15px;
-  }
+.search {
+  margin-top: 15px;
+  border-radius: 1px;
+  border: none;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.25);
+  margin-right: 20px;
 }
 
 .btn {
@@ -47,18 +51,15 @@ button:focus {
 
 input {
   background-color: transparent;
-  border-radius: 1px;
   width: 250px;
-  border: none;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.25);
-  margin-right: 20px;
+  border-color: rgba(255, 255, 255, 0.25);
   color: white;
 }
 
 input:focus {
   background-color: transparent;
   box-shadow: none;
-  border-color: white;
+  border-color: rgba(255, 255, 255, 0.25);
   color: white;
 }
 
@@ -86,7 +87,7 @@ textarea {
   color: white;
   border-color: rgba(255, 255, 255, 0.25);
   background-color: #444;
-  height: 400px;
+  height: 200px;
 }
 
 textarea:focus {
@@ -157,18 +158,18 @@ button > i {
 
 /* Modals */
 
-.modal::-webkit-scrollbar {
-  display: none;
+.modal {
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
-.modal-open {
-  overflow: inherit;
+.modal::-webkit-scrollbar {
+  display: none;
 }
 
 .modal-content {
   background: #444;
   color: white;
-  overflow: hidden;
 }
 
 .modal::-webkit-scrollbar {
@@ -208,17 +209,6 @@ button > i {
   border: none !important;
 }
 
-.dropdown {
-  z-index: 999999 !important;
-  width: 100%;
-  margin-top: 30%;
-}
-
-.dropdown-menu {
-  background-color: rgba(0, 0, 0, 1);
-  opacity: 100%;
-}
-
 /* Animation */
 
 .bounceIn {
@@ -247,4 +237,12 @@ button > i {
     opacity: 1;
     -webkit-transform: scale(1) translate3d(0, 0, 0);
   }
+}
+
+/* PrismJS */
+
+.contentInside {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }

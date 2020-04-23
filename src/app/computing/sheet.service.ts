@@ -60,7 +60,7 @@ export class SheetService {
       titre: 'Bidule',
       description: `<h1>Titre </h1> 
 <pre><code class="language-typescript">emitSheetSubject() {
-  this.sheetsSubject.next(this.sheets.slice());
+  this.sheetsSubject.next(this.sheets.slice('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
 }</code></pre>`,
       type: 'c',
     },

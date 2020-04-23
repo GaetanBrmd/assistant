@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "dist/Assistant",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/Assistant/index.html"
+      }
+    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}

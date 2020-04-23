@@ -1,0 +1,12 @@
+$theme-colors: (
+  "bash": #f8f9fa,
+  "git": #111,
+  "nodejs": #28a745,
+  "angular": #dc3545,
+  "python": #ffc107,
+  "c": #6c757d,
+  "java": #17a2b8,
+  "sql": #6f42c1,
+  "global": #007bff,
+);
+@import "node_modules/bootstrap/scss/bootstrap";

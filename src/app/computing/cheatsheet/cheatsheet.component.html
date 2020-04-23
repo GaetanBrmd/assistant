@@ -95,7 +95,7 @@
   >
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header bg-light text-dark">
+        <div class="modal-header text-light">
           <h5 class="modal-title" id="exampleModalLabel">
             Créer une nouvelle fiche
           </h5>
@@ -128,9 +128,9 @@
                 Type
               </label>
               <select id="type" class="form-control" name="type" ngModel>
-                <option [value]="t.key" *ngFor="let t of types | keyvalue">{{
-                  t.value.lang
-                }}</option>
+                <option [value]="t.key" *ngFor="let t of types | keyvalue"
+                  >{{ t.value.lang }}
+                </option>
               </select>
             </div>
             <div class="form-group">
@@ -193,12 +193,9 @@
             <i
               [ngClass]="[
                 'devicon-' + types[clickedSheet.type].icon + '-plain',
-                'ml-2',
-                'mt-2'
+                'ml-3',
+                'mt-3'
               ]"
-              [style.display]="
-                clickedSheet.titre === 'Supprimé' ? 'none' : 'inline'
-              "
             ></i>
           </h5>
 
@@ -211,20 +208,14 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div
-          class="modal-body"
-          [style.display]="clickedSheet.titre === 'Supprimé' ? 'none' : 'flex'"
-        >
+        <div class="modal-body">
           <div
             class="contentInside"
             [innerHTML]="clickedSheet.description"
           ></div>
         </div>
-        <div
-          class="modal-footer"
-          [style.display]="clickedSheet.titre === 'Supprimé' ? 'none' : 'flex'"
-        >
-          <div class="btn-group">
+        <div class="modal-footer">
+          <div class="">
             <button
               type="button"
               class="btn btn-success"
@@ -239,6 +230,7 @@
               class="btn btn-danger"
               data-toggle="modal"
               data-target="#delModal"
+              data-dismiss="modal"
             >
               Delete
             </button>
@@ -360,25 +352,13 @@
 >
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
-      <div class="modal-header text-light bg-dark">
+      <div class="modal-header text-light">
         <h5 class="modal-title" id="exampleModalLabel">
           Do you really want to delete this ?
         </h5>
-
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-footer">
-        <div class="btn-group">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Cancel
-          </button>
+        <div class="">
           <button
             type="button"
             class="btn btn-danger"
@@ -387,6 +367,15 @@
             data-target="modal"
           >
             Delete
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            data-toggle="modal"
+            data-target="#contentModal"
+          >
+            Cancel
           </button>
         </div>
       </div>

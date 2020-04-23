@@ -31,7 +31,6 @@ h1 {
   border-bottom: 1.5px solid rgba(255, 255, 255, 0.25);
   margin-right: 20px;
 }
-
 .btn {
   margin: 5px;
   border-radius: 40px;
@@ -214,7 +213,7 @@ button > i {
 .bounceIn {
   opacity: 0;
   animation-name: bounceIn;
-  animation-duration: 450ms;
+  animation-duration: 600ms;
   -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
@@ -224,18 +223,22 @@ button > i {
   0% {
     opacity: 0;
     -webkit-transform: scale(0.3) translate3d(0, 0, 0);
+    transform: scale(0.3) translate3d(0, 0, 0);
   }
   50% {
     opacity: 0.9;
     -webkit-transform: scale(1.03);
+    transform: scale(1.03);
   }
   80% {
     opacity: 1;
     -webkit-transform: scale(0.97);
+    transform: scale(0.97);
   }
   100% {
     opacity: 1;
     -webkit-transform: scale(1) translate3d(0, 0, 0);
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 

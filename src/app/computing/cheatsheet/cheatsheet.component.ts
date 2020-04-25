@@ -19,10 +19,10 @@ export class CheatsheetComponent implements OnInit {
   typesSubscription: Subscription;
 
   clickedSheet: Sheet = {
-    _id: 0,
     titre: '',
     description: '',
     type: 'global',
+    _id: '0',
   };
 
   searchText: string;
@@ -56,6 +56,8 @@ export class CheatsheetComponent implements OnInit {
     this.typeService.emitTypeSubject();
     this.types = this.types[0];
     this.resizeAllGridItems();
+
+    this.sheetService.getSheets();
   }
 
   ngAfterViewChecked() {
@@ -97,23 +99,29 @@ export class CheatsheetComponent implements OnInit {
   }
 
   onEdit(form: NgForm) {
-    this.clickedSheet = this.sheetService.editSheet(
-      this.clickedSheet._id,
-      form.value['titre'],
-      form.value['description'],
-      form.value['type']
-    );
+    this.sheetService
+      .editSheet(
+        this.clickedSheet._id,
+        form.value['titre'],
+        form.value['description'],
+        form.value['type']
+      )
+      .then((res: Sheet) => {
+        this.clickedSheet = res;
+        this.sheetService.emitSheetSubject();
+      });
   }
 
   onDel() {
     //alert('On supprime !');
     this.sheetService.deleteSheet(this.clickedSheet._id);
     this.clickedSheet = new Sheet(
-      -1,
       'Supprimé',
       'Cet élément a été supprimé !',
-      'angular'
+      'angular',
+      '-1'
     );
+    this.resizeAllGridItems();
   }
 
   onAddType(type: string) {
@@ -125,13 +133,11 @@ export class CheatsheetComponent implements OnInit {
     } else {
       this.searchType.push(type);
     }
-    console.log(this.searchType);
     this.sheetService.emitSheetSubject();
   }
 
   onClick(s: Sheet) {
-    this.clickedSheet = new Sheet(s._id, s.titre, s.description, s.type);
-    console.log('ClickedSheet', this.clickedSheet);
+    this.clickedSheet = new Sheet(s.titre, s.description, s.type, s._id);
     setTimeout(() => this.highlightService.highlightAll());
   }
 }

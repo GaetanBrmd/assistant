@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Sheet } from './sheet.model';
+import { WebRequestService } from '../services/web-request.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,34 +10,34 @@ export class SheetService {
   sheetsSubject = new Subject<Sheet[]>();
   private sheets: Sheet[] = [
     {
-      _id: 0,
+      _id: '0',
       titre: 'Basics',
       description:
         'Lorem bidule hipster Quaestione igitur per multiplices dilatata fortunas cum ambigerentur quaedam, non nulla levius actitata constaret, post multorum clades Apollinares',
       type: 'git',
     },
     {
-      _id: 1,
+      _id: '1',
       titre: 'Starter',
       description: 'Un bon starter pack pour un projet Node secure.',
       type: 'nodejs',
     },
     {
-      _id: 2,
+      _id: '2',
       titre: 'Select',
       description:
         'Un bon starter pack pour un projet Node secure. lorem azeiohazeazuidasd zjkzgnfqe fef ef bqkzn <a href="http://google.com">Lien pour tester</a>',
       type: 'sql',
     },
     {
-      _id: 3,
+      _id: '3',
       titre: 'Ng Server',
       description:
         'Quaestione igitur per multiplices dilatata fortunas cum ambigerentur quaedam, non nulla levius actitata constaret, post multorum clades Apollinares ambo pater et filius in exilium acti cum ad locum Crateras nomine pervenissent, villam scilicet suam quae ab Antiochia vicensimo et quarto disiungitur lapide, ut mandatum est, fractis cruribus occiduntur.',
       type: 'angular',
     },
     {
-      _id: 4,
+      _id: '4',
       titre: 'Printing',
       description: `<pre><code class="language-python"># Multiplication table (from 1 to 10) in Python
 num = 12
@@ -50,7 +51,7 @@ for i in range(1, 11):
       type: 'python',
     },
     {
-      _id: 5,
+      _id: '5',
       titre: 'Interface',
       description: `<h1>Titre </h1> 
       <pre><code class="language-java">public class GCD {
@@ -72,7 +73,7 @@ for i in range(1, 11):
       type: 'java',
     },
     {
-      _id: 6,
+      _id: '6',
       titre: 'Scripting avancé',
       description: `<h1>Titre </h1> 
 <pre><code class="language-bash">#!/bin/bash
@@ -91,7 +92,7 @@ done
       type: 'bash',
     },
     {
-      _id: 7,
+      _id: '7',
       titre: 'Bidule',
       description: `<h1>Titre </h1>
 <pre><code class="language-typescript">emitSheetSubject() {
@@ -100,40 +101,91 @@ done
       type: 'c',
     },
   ];
+  appareils: Sheet[] = [];
 
-  constructor() {}
+  constructor(private webService: WebRequestService) {}
 
   emitSheetSubject() {
     this.sheetsSubject.next(this.sheets.slice());
   }
 
   addSheet(titre: string, description: string, type: string) {
-    const newSheet: Sheet = new Sheet(
-      this.sheets.length,
-      titre,
-      description,
-      type
-    );
-    this.sheets.push(newSheet);
-    this.emitSheetSubject();
-  }
-
-  editSheet(id: number, titre: string, description: string, type: string) {
-    for (let s of this.sheets) {
-      if (s._id === id) {
-        if (titre !== '') s.titre = titre;
-        if (type !== '') s.type = type;
-        if (description !== '') s.description = description;
+    const newSheet: Sheet = new Sheet(titre, description, type);
+    this.webService.post('computing/sheet', newSheet).subscribe(
+      (res: any) => {
+        this.sheets.push(res);
         this.emitSheetSubject();
-        return s;
+        console.log('Ajout réussi !');
+      },
+      (error) => {
+        console.log("Erreur lors de l'ajout", error);
       }
-    }
+    );
+    this.emitSheetSubject();
   }
 
-  deleteSheet(id: number) {
-    this.sheets = this.sheets.filter(function (value, index, arr) {
-      return value._id !== id;
+  editSheet(id: string, titre: string, description: string, type: string) {
+    let s = new Sheet('', '', '');
+    let a = {
+      _id: id,
+      ...(titre !== '' && { titre: titre }),
+      ...(type !== '' && { type: type }),
+      ...(description !== '' && { description: description }),
+    };
+    console.log('a:', a);
+
+    return new Promise((resolve, reject) => {
+      this.webService.patch('computing/sheet', a).subscribe(
+        (res: Sheet) => {
+          console.log('Recu en réponse du back :', res);
+
+          for (let i = 0; i < this.sheets.length; i++) {
+            if (this.sheets[i]._id === res._id) {
+              this.sheets[i] = res;
+              break;
+            }
+          }
+
+          this.emitSheetSubject();
+          console.log('Maj réussi !');
+          resolve(res);
+        },
+        (error) => {
+          reject();
+          console.log('Erreur lors de la maj', error);
+        }
+      );
     });
+  }
+
+  deleteSheet(id: string) {
+    this.webService.post('computing/sheet/del', { _id: id }).subscribe(
+      (res: any) => {
+        this.sheets = this.sheets.filter((s) => {
+          return s._id != id;
+        });
+
+        this.emitSheetSubject();
+        console.log('Suppresion réussi !');
+      },
+      (error) => {
+        console.log('Erreur lors de suppression', error);
+      }
+    );
     this.emitSheetSubject();
+  }
+
+  getSheets() {
+    this.webService.get('computing/sheet').subscribe(
+      (res: any[]) => {
+        this.sheets = res;
+        this.emitSheetSubject();
+        console.log(res);
+        console.log('Chargement réussi !');
+      },
+      (error) => {
+        console.log('Erreur lors du chargement', error);
+      }
+    );
   }
 }

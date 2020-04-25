@@ -8,7 +8,6 @@ export class TypePipe implements PipeTransform {
     if (!items) return [];
     if (!types || types.length === 0) return items;
 
-    console.log(types);
     return items.filter((it) => {
       return types.includes(it.type);
     });

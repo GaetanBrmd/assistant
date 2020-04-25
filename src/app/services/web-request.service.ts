@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class WebRequestService {
   readonly ROOT_URL;
   constructor(private http: HttpClient) {
-    this.ROOT_URL = 'http://localhost:3000';
+    this.ROOT_URL = 'http://localhost:3003';
   }
 
   login(email: string, password: string) {
@@ -22,6 +22,12 @@ export class WebRequestService {
     return this.http.get(`${this.ROOT_URL}/${uri}`, { withCredentials: true });
   }
 
+  gets(uri: string) {
+    return this.http.get<any[]>(`${this.ROOT_URL}/${uri}`, {
+      withCredentials: true,
+    });
+  }
+
   post(uri: string, payload: Object) {
     return this.http.post(`${this.ROOT_URL}/${uri}`, payload, {
       withCredentials: true,
@@ -34,7 +40,7 @@ export class WebRequestService {
     });
   }
 
-  delete(uri: string) {
+  delete(uri: string, payload: Object) {
     return this.http.delete(`${this.ROOT_URL}/${uri}`, {
       withCredentials: true,
     });

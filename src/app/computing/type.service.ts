@@ -72,14 +72,18 @@ export class TypeService {
   }
 
   getTypes() {
-    return this.types;
+    return this.types[0];
   }
 
   getBgColor(type: string) {
-    return this.types[type].lang;
+    return this.types[0][type].lang;
   }
 
   getColor(type: string) {
-    return this.types[type].color;
+    return this.types[0][type].color;
+  }
+
+  getIcon(type: string) {
+    return this.types[0][type].icon;
   }
 }

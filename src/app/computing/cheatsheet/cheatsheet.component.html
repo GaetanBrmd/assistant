@@ -3,7 +3,7 @@
 <div class="row buttons">
   <div class="col">
     <button
-      *ngFor="let t of types | keyvalue"
+      *ngFor="let t of types[0] | keyvalue"
       type="button"
       class="btn"
       [ngClass]="['btn-outline-' + t.key]"
@@ -59,18 +59,11 @@
   >
     <div class="content">
       <div
-        [ngClass]="[
-          'card-header',
-          'text-' + types[s.type].color,
-          'bg-' + s.type
-        ]"
+        [ngClass]="['card-header', 'text-' + getColor(s.type), 'bg-' + s.type]"
       >
         {{ s.titre | titlecase }}
         <i
-          [ngClass]="[
-            'devicon-' + types[s.type].icon + '-plain',
-            'float-right'
-          ]"
+          [ngClass]="['devicon-' + getIcon(s.type) + '-plain', 'float-right']"
         ></i>
       </div>
       <div class="card-body">
@@ -81,169 +74,13 @@
     </div>
     {{ last ? resizeAllGridItems() : "" }}
   </div>
-
-  <!-- Add modal -->
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header text-light">
-          <h5 class="modal-title" id="exampleModalLabel">
-            Créer une nouvelle fiche
-          </h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form #f="ngForm">
-            <div class="form-group">
-              <label for="titre">
-                Titre
-              </label>
-              <input
-                type="text"
-                id="titre"
-                class="form-control"
-                name="titre"
-                ngModel
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="type">
-                Type
-              </label>
-              <select id="type" class="form-control" name="type" ngModel>
-                <option [value]="t.key" *ngFor="let t of types | keyvalue"
-                  >{{ t.value.lang }}
-                </option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="description">
-                Description
-              </label>
-              <textarea
-                type="text"
-                id="description"
-                class="form-control"
-                name="description"
-                ngModel
-              ></textarea>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="submit"
-                class="btn btn-success"
-                (click)="onAdd(f)"
-                [disabled]="f.invalid"
-                data-dismiss="modal"
-              >
-                Save
-              </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--View sheet modal-->
-
-  <div
-    class="modal fade"
-    id="contentModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div
-          [ngClass]="[
-            'modal-header',
-            'text-' + types[clickedSheet.type].color,
-            'bg-' + clickedSheet.type
-          ]"
-        >
-          <h5 class="modal-title" id="exampleModalLabel">
-            {{ clickedSheet.titre | titlecase }}
-            <i
-              [ngClass]="[
-                'devicon-' + types[clickedSheet.type].icon + '-plain',
-                'ml-3',
-                'mt-3'
-              ]"
-            ></i>
-          </h5>
-
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div
-            class="contentInside"
-            [innerHTML]="clickedSheet.description"
-          ></div>
-        </div>
-        <div class="modal-footer">
-          <div class="">
-            <button
-              type="button"
-              class="btn btn-success"
-              data-dismiss="modal"
-              data-toggle="modal"
-              data-target="#editModal"
-            >
-              Update
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-toggle="modal"
-              data-target="#delModal"
-              data-dismiss="modal"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
-<!--Edit Modal-->
+<!--View sheet modal-->
 
 <div
   class="modal fade"
-  id="editModal"
+  id="contentModal"
   tabindex="-1"
   role="dialog"
   aria-labelledby="exampleModalLabel"
@@ -254,13 +91,21 @@
       <div
         [ngClass]="[
           'modal-header',
-          'text-' + types[clickedSheet.type].color,
+          'text-' + getColor(clickedSheet.type),
           'bg-' + clickedSheet.type
         ]"
       >
         <h5 class="modal-title" id="exampleModalLabel">
-          Editer une fiche
+          {{ clickedSheet.titre | titlecase }}
+          <i
+            [ngClass]="[
+              'devicon-' + 'types[clickedSheet.type].icon' + '-plain',
+              'ml-3',
+              'mt-3'
+            ]"
+          ></i>
         </h5>
+
         <button
           type="button"
           class="close"
@@ -271,112 +116,33 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #f2="ngForm">
-          <div class="form-group">
-            <label for="titre">
-              Titre
-            </label>
-            <input
-              type="text"
-              id="titre"
-              class="form-control"
-              name="titre"
-              [value]="clickedSheet.titre"
-              ngModel
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="type">
-              Type
-            </label>
-            <select
-              id="type"
-              class="form-control"
-              [value]="clickedSheet.type"
-              name="type"
-              ngModel
-            >
-              <option [value]="t.key" *ngFor="let t of types | keyvalue">{{
-                t.value.lang
-              }}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="description">
-              Description
-            </label>
-            <textarea
-              type="text"
-              id="description"
-              class="form-control"
-              name="description"
-              [value]="clickedSheet.description"
-              ngModel
-            ></textarea>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-success"
-              (click)="onEdit(f2)"
-              data-dismiss="modal"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-              data-target="modal"
-            >
-              Close
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--Delete validation-->
-<div
-  class="modal fade"
-  id="delModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-light">
-        <h5 class="modal-title" id="exampleModalLabel">
-          Do you really want to delete this ?
-        </h5>
+        <div class="contentInside" [innerHTML]="clickedSheet.description"></div>
       </div>
       <div class="modal-footer">
         <div class="">
           <button
             type="button"
-            class="btn btn-danger"
-            (click)="onDel()"
+            class="btn btn-success"
             data-dismiss="modal"
-            data-target="modal"
+            data-toggle="modal"
+            data-target="#editModal"
           >
-            Delete
+            Update
           </button>
           <button
             type="button"
-            class="btn btn-secondary"
-            data-dismiss="modal"
+            class="btn btn-danger"
             data-toggle="modal"
-            data-target="#contentModal"
+            data-target="#delModal"
+            data-dismiss="modal"
           >
-            Cancel
+            Delete
           </button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-edit-sheet [clickedSheet]="clickedSheet"></app-edit-sheet>
+<app-add-sheet></app-add-sheet>

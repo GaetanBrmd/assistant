@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { Sheet } from '../sheet.model';
@@ -37,16 +37,18 @@ export class CheatsheetComponent implements OnInit {
     private highlightService: HighlightService
   ) {
     this.searchType = [];
+    this.clickedSheet = new Sheet('', '', 'global');
   }
 
   ngOnInit(): void {
     this.sheetsSubscription = this.sheetService.sheetsSubject.subscribe(
       (sheets: Sheet[]) => {
         this.sheets = sheets;
+        console.log('bidule');
       }
     );
+    this.sheetService.getSheets();
     this.sheetService.emitSheetSubject();
-    this.clickedSheet = this.sheets[0];
 
     this.typesSubscription = this.typeService.typesSubject.subscribe(
       (types: any) => {
@@ -54,17 +56,17 @@ export class CheatsheetComponent implements OnInit {
       }
     );
     this.typeService.emitTypeSubject();
-    this.types = this.types[0];
     this.resizeAllGridItems();
-
-    this.sheetService.getSheets();
   }
 
-  ngAfterViewChecked() {
-    if (!this.highlighted) {
-      this.highlightService.highlightAll();
-      this.highlighted = true;
-    }
+  getBG(type: string) {
+    return this.typeService.getBgColor(type);
+  }
+  getColor(type: string) {
+    return this.typeService.getColor(type);
+  }
+  getIcon(type: string) {
+    return this.typeService.getIcon(type);
   }
 
   resizeGridItem(item) {
@@ -89,41 +91,6 @@ export class CheatsheetComponent implements OnInit {
     }
   }
 
-  onAdd(form: NgForm) {
-    this.sheetService.addSheet(
-      form.value['titre'],
-      form.value['description'],
-      form.value['type']
-    );
-    this.resizeAllGridItems();
-  }
-
-  onEdit(form: NgForm) {
-    this.sheetService
-      .editSheet(
-        this.clickedSheet._id,
-        form.value['titre'],
-        form.value['description'],
-        form.value['type']
-      )
-      .then((res: Sheet) => {
-        this.clickedSheet = res;
-        this.sheetService.emitSheetSubject();
-      });
-  }
-
-  onDel() {
-    //alert('On supprime !');
-    this.sheetService.deleteSheet(this.clickedSheet._id);
-    this.clickedSheet = new Sheet(
-      'Supprimé',
-      'Cet élément a été supprimé !',
-      'angular',
-      '-1'
-    );
-    this.resizeAllGridItems();
-  }
-
   onAddType(type: string) {
     this.filterApplied = true;
     setTimeout(() => (this.filterApplied = false), 1000);
@@ -137,7 +104,7 @@ export class CheatsheetComponent implements OnInit {
   }
 
   onClick(s: Sheet) {
-    this.clickedSheet = new Sheet(s.titre, s.description, s.type, s._id);
+    this.clickedSheet = s;
     setTimeout(() => this.highlightService.highlightAll());
   }
 }

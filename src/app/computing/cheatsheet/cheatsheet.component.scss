@@ -144,59 +144,6 @@ button > i {
   }
 }
 
-/* Modals */
-
-.modal {
-  overflow: scroll;
-  overflow-x: hidden;
-}
-
-.modal::-webkit-scrollbar {
-  display: none;
-}
-
-.modal-content {
-  background: #444;
-  color: white;
-}
-
-.modal::-webkit-scrollbar {
-  width: 0.25rem;
-}
-
-.modal::-webkit-scrollbar-track {
-  background: #1e1e24;
-}
-
-.modal::-webkit-scrollbar-thumb {
-  background: white;
-  border-radius: 100px;
-}
-
-.modal-header {
-  border: none;
-}
-.modal-footer {
-  border: none;
-}
-.modal-body {
-  white-space: pre-wrap;
-}
-
-.edit {
-  margin-right: 30px;
-  height: 20px;
-  color: black !important;
-}
-
-.edit:hover {
-  color: black !important;
-}
-
-.close {
-  border: none !important;
-}
-
 /* Animation */
 
 .bounceIn {

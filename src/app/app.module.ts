@@ -15,6 +15,8 @@ import { AuthService } from './services/auth.service';
 import { WebRequestService } from './services/web-request.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
+import { AddSheetComponent } from './computing/add-sheet/add-sheet.component';
+import { EditSheetComponent } from './computing/edit-sheet/edit-sheet.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { LoginComponent } from './components/login/login.component';
     FilterPipe,
     TypePipe,
     LoginComponent,
+    AddSheetComponent,
+    EditSheetComponent,
   ],
   imports: [
     BrowserModule,

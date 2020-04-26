@@ -1,0 +1,85 @@
+<!-- Add modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-light">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Créer une nouvelle fiche
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form #f="ngForm">
+          <div class="form-group">
+            <label for="titre">
+              Titre
+            </label>
+            <input
+              type="text"
+              id="titre"
+              class="form-control"
+              name="titre"
+              ngModel
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="type">
+              Type
+            </label>
+            <select id="type" class="form-control" name="type" ngModel>
+              <option [value]="t.key" *ngFor="let t of types[0] | keyvalue"
+                >{{ t.value.lang }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="description">
+              Description
+            </label>
+            <textarea
+              type="text"
+              id="description"
+              class="form-control"
+              name="description"
+              ngModel
+            ></textarea>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-success"
+              (click)="onAdd(f)"
+              [disabled]="f.invalid"
+              data-dismiss="modal"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -45,6 +45,7 @@ export class CheatsheetComponent implements OnInit {
       (sheets: Sheet[]) => {
         this.sheets = sheets;
         console.log('bidule');
+        this.resizeAllGridItems();
       }
     );
     this.sheetService.getSheets();
@@ -56,7 +57,6 @@ export class CheatsheetComponent implements OnInit {
       }
     );
     this.typeService.emitTypeSubject();
-    this.resizeAllGridItems();
   }
 
   getBG(type: string) {

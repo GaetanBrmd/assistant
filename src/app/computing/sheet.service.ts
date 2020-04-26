@@ -8,7 +8,7 @@ import { WebRequestService } from '../services/web-request.service';
 })
 export class SheetService {
   sheetsSubject = new Subject<Sheet[]>();
-  private sheets: Sheet[] = [
+  private sheets: Sheet[] = []; /*= [
     {
       _id: '0',
       titre: 'Basics',
@@ -100,7 +100,7 @@ done
 }</code></pre>`,
       type: 'c',
     },
-  ];
+  ];*/
   appareils: Sheet[] = [];
 
   constructor(private webService: WebRequestService) {}
@@ -109,8 +109,9 @@ done
     this.sheetsSubject.next(this.sheets.slice());
   }
 
-  addSheet(titre: string, description: string, type: string) {
-    const newSheet: Sheet = new Sheet(titre, description, type);
+  addSheet(titre: string, description: string, type: string, contenu: string) {
+    const newSheet: Sheet = new Sheet(titre, description, type, contenu);
+    console.log("Envoi d'une nvl sheet", newSheet);
     this.webService.post('computing/sheet', newSheet).subscribe(
       (res: any) => {
         this.sheets.push(res);
@@ -124,18 +125,24 @@ done
     this.emitSheetSubject();
   }
 
-  editSheet(id: string, titre: string, description: string, type: string) {
-    let s = new Sheet('', '', '');
-    let a = {
+  editSheet(
+    id: string,
+    titre: string,
+    description: string,
+    type: string,
+    contenu: string
+  ) {
+    let edit = {
       _id: id,
       ...(titre !== '' && { titre: titre }),
       ...(type !== '' && { type: type }),
       ...(description !== '' && { description: description }),
+      ...(contenu !== '' && { contenu: contenu }),
     };
-    console.log('a:', a);
+    console.log('Envoi pour la modif :', edit);
 
     return new Promise((resolve, reject) => {
-      this.webService.patch('computing/sheet', a).subscribe(
+      this.webService.patch('computing/sheet', edit).subscribe(
         (res: Sheet) => {
           console.log('Recu en réponse du back :', res);
 
@@ -178,9 +185,9 @@ done
   getSheets() {
     this.webService.get('computing/sheet').subscribe(
       (res: any[]) => {
+        console.log('Chargement des fiches :', res);
         this.sheets = res;
         this.emitSheetSubject();
-        console.log(res);
         console.log('Chargement réussi !');
       },
       (error) => {

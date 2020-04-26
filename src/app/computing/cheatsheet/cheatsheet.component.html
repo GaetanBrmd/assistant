@@ -3,7 +3,7 @@
 <div class="row buttons">
   <div class="col">
     <button
-      *ngFor="let t of types[0] | keyvalue"
+      *ngFor="let t of getTypes() | keyvalue"
       type="button"
       class="btn"
       [ngClass]="['btn-outline-' + t.key]"
@@ -98,7 +98,7 @@
           {{ clickedSheet.titre | titlecase }}
           <i
             [ngClass]="[
-              'devicon-' + 'types[clickedSheet.type].icon' + '-plain',
+              'devicon-' + getIcon(clickedSheet.type) + '-plain',
               'ml-3',
               'mt-3'
             ]"
@@ -115,7 +115,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="contentInside" [innerHTML]="clickedSheet.description"></div>
+        <p class="subtitle">{{ clickedSheet.description }}</p>
+        <div class="contentInside" [innerHTML]="clickedSheet.contenu"></div>
       </div>
       <div class="modal-footer">
         <div class="">

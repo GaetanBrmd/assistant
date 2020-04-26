@@ -31,7 +31,8 @@ export class AddSheetComponent implements OnInit {
     this.sheetService.addSheet(
       f.value['titre'],
       f.value['description'],
-      f.value['type']
+      f.value['type'],
+      f.value['contenu']
     );
   }
 }

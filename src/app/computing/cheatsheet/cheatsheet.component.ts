@@ -22,6 +22,7 @@ export class CheatsheetComponent implements OnInit {
     titre: '',
     description: '',
     type: 'global',
+    contenu: '',
     _id: '0',
   };
 
@@ -37,14 +38,13 @@ export class CheatsheetComponent implements OnInit {
     private highlightService: HighlightService
   ) {
     this.searchType = [];
-    this.clickedSheet = new Sheet('', '', 'global');
+    this.clickedSheet = new Sheet('', '', 'global', '');
   }
 
   ngOnInit(): void {
     this.sheetsSubscription = this.sheetService.sheetsSubject.subscribe(
       (sheets: Sheet[]) => {
         this.sheets = sheets;
-        console.log('bidule');
         this.resizeAllGridItems();
       }
     );
@@ -67,6 +67,9 @@ export class CheatsheetComponent implements OnInit {
   }
   getIcon(type: string) {
     return this.typeService.getIcon(type);
+  }
+  getTypes() {
+    return this.typeService.getTypes();
   }
 
   resizeGridItem(item) {

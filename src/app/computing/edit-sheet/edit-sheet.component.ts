@@ -33,12 +33,14 @@ export class EditSheetComponent implements OnInit {
   }
 
   onEdit(form: NgForm) {
+    console.log('contenu', form.value['contenu']);
     this.sheetService
       .editSheet(
         this.clickedSheet._id,
         form.value['titre'],
         form.value['description'],
-        form.value['type']
+        form.value['type'],
+        form.value['contenu']
       )
       .then((res: Sheet) => {
         this.clickedSheet = res;

@@ -8,7 +8,7 @@
       class="btn"
       [ngClass]="['btn-outline-' + t.key]"
       [class.active]="this.searchType.includes(t.key)"
-      (click)="onAddType(t.key)"
+      (click)="onAddSearchType(t.key)"
     >
       {{ t.value.lang }}
       <i [class]="'devicon-' + t.value.icon + '-plain float-right'"></i>
@@ -47,7 +47,6 @@
   <div
     class="card mb-3 item"
     [class.bounceIn]="this.filterApplied"
-    style="max-width: 18rem;"
     *ngFor="
       let s of sheets | filter: searchText | type: searchType;
       let last = last;

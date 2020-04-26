@@ -91,9 +91,9 @@ export class CheatsheetComponent implements OnInit {
     }
   }
 
-  onAddType(type: string) {
+  onAddSearchType(type: string) {
     this.filterApplied = true;
-    setTimeout(() => (this.filterApplied = false), 1000);
+    setTimeout(() => (this.filterApplied = false), 500);
     const index = this.searchType.indexOf(type);
     if (index > -1) {
       this.searchType.splice(index, 1);

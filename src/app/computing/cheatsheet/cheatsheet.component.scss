@@ -107,6 +107,7 @@ button > i {
 }
 
 .card {
+  max-width: 18rem;
   min-width: 250px;
   border-width: 1.2px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
@@ -138,10 +139,10 @@ button > i {
 
 @keyframes goDown {
   from {
-    transform: scale(1);
+    transform: scale(1.01);
   }
   to {
-    transform: scale(0.98);
+    transform: scale(0.99);
   }
 }
 
@@ -150,7 +151,7 @@ button > i {
 .bounceIn {
   opacity: 0;
   animation-name: bounceIn;
-  animation-duration: 600ms;
+  animation-duration: 300ms;
   -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
@@ -159,18 +160,18 @@ button > i {
 @keyframes bounceIn {
   0% {
     opacity: 0;
-    -webkit-transform: scale(0.3) translate3d(0, 0, 0);
-    transform: scale(0.3) translate3d(0, 0, 0);
+    -webkit-transform: scale(0.6) translate3d(0, 0, 0);
+    transform: scale(0.6) translate3d(0, 0, 0);
   }
   50% {
     opacity: 0.9;
     -webkit-transform: scale(1.03);
-    transform: scale(1.03);
+    transform: scale(1.025);
   }
   80% {
     opacity: 1;
     -webkit-transform: scale(0.97);
-    transform: scale(0.97);
+    transform: scale(0.975);
   }
   100% {
     opacity: 1;

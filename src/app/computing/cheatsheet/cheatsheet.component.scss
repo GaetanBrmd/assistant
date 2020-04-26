@@ -22,8 +22,6 @@ h1 {
 }
 .btn {
   margin: 5px;
-  border-radius: 40px;
-  border-width: 1.5px;
   min-width: 50px;
   box-shadow: none !important;
 }
@@ -37,18 +35,15 @@ button:focus {
 
 /* Inputs */
 
-input {
-  background-color: transparent;
-  width: 250px;
-  border-color: rgba(255, 255, 255, 0.25);
-  color: white;
+.search {
+  background-color: transparent !important;
+  width: 250px !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
 }
 
-input:focus {
-  background-color: transparent;
+.search:focus {
   box-shadow: none;
-  border-color: rgba(255, 255, 255, 0.25);
-  color: white;
 }
 
 .fa-search {
@@ -56,6 +51,10 @@ input:focus {
   margin-right: 10px;
   margin-left: 15px;
   color: rgba(255, 255, 255, 0.25);
+}
+
+.search-bar {
+  flex-wrap: unset;
 }
 
 select {

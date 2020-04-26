@@ -1,5 +1,5 @@
 <div class="card" style="max-width: 18rem; padding: 10px;">
-  <h5>Welcome to Jarvis</h5>
+  <h4>Welcome to Jarvis</h4>
   <form #f="ngForm">
     <div class="form-group">
       <label for="titre">
@@ -28,16 +28,17 @@
       />
     </div>
 
-    <button
-      type="submit"
-      class="btn btn-success float-right"
-      (click)="onLogin(f)"
-      [disabled]="f.invalid"
-    >
-      Sign In
-    </button>
-    <button class="btn btn-danger float-left" (click)="onLogout()">
-      Logout
-    </button>
+    <div class="modal-footer">
+      <button class="btn btn-outline-danger" (click)="onLogout()">
+        Logout
+      </button>
+      <button
+        type="submit"
+        class="btn btn-outline-success"
+        (click)="onLogin(f)"
+      >
+        Sign In
+      </button>
+    </div>
   </form>
 </div>

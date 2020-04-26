@@ -90,7 +90,7 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-success"
+              class="btn btn-outline-success"
               (click)="onEdit(f2)"
               data-dismiss="modal"
             >
@@ -98,9 +98,11 @@
             </button>
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-outline-secondary"
               data-dismiss="modal"
               data-target="modal"
+              data-toggle="modal"
+              data-target="#contentModal"
             >
               Close
             </button>
@@ -131,7 +133,7 @@
         <div class="">
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-outline-danger"
             (click)="onDel()"
             data-dismiss="modal"
             data-target="modal"
@@ -140,7 +142,7 @@
           </button>
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-outline-secondary"
             data-dismiss="modal"
             data-toggle="modal"
             data-target="#contentModal"

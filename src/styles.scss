@@ -76,3 +76,20 @@ body {
 .close {
   border: none !important;
 }
+
+input,
+select,
+textarea {
+  background-color: #333 !important;
+  color: white !important;
+}
+
+.btn {
+  box-shadow: none;
+  border-radius: 40px;
+  border-width: 1.5px;
+}
+
+#contenu {
+  height: 15rem;
+}

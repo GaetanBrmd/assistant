@@ -1,5 +1,7 @@
 .card {
   min-width: 300px;
+  background-color: #333;
+  color: white;
   margin: 0;
   position: absolute;
   top: 50%;
@@ -8,6 +10,6 @@
   transform: translate(-50%, -50%);
 }
 
-input {
-  max-width: 250px;
+h4 {
+  padding-bottom: 10px;
 }

@@ -26,4 +26,8 @@ export class LoginComponent implements OnInit {
     this.authService.signOut();
     console.log('Logout');
   }
+
+  connected() {
+    return this.authService.isAuth;
+  }
 }

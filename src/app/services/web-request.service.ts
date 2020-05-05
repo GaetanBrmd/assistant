@@ -7,10 +7,11 @@ import { HttpClient } from '@angular/common/http';
 export class WebRequestService {
   readonly ROOT_URL;
   constructor(private http: HttpClient) {
-    this.ROOT_URL = 'https://localhost:3003';
+    this.ROOT_URL = 'https://jarvis-api.azurewebsites.net';
   }
 
   login(email: string, password: string) {
+    console.log(this.ROOT_URL);
     return this.http.post(
       `${this.ROOT_URL}/user/login`,
       { email, password },
@@ -19,6 +20,7 @@ export class WebRequestService {
   }
 
   get(uri: string) {
+    console.log(this.ROOT_URL);
     return this.http.get(`${this.ROOT_URL}/${uri}`, { withCredentials: true });
   }
 
@@ -29,6 +31,7 @@ export class WebRequestService {
   }
 
   post(uri: string, payload: Object) {
+    console.log(this.ROOT_URL);
     return this.http.post(`${this.ROOT_URL}/${uri}`, payload, {
       withCredentials: true,
     });

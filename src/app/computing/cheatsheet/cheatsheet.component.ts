@@ -108,6 +108,7 @@ export class CheatsheetComponent implements OnInit {
 
   onClick(s: Sheet) {
     this.clickedSheet = s;
+    console.log(this.clickedSheet);
     setTimeout(() => this.highlightService.highlightAll());
   }
 }

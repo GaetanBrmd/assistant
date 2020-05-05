@@ -17,6 +17,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
 import { AddSheetComponent } from './computing/add-sheet/add-sheet.component';
 import { EditSheetComponent } from './computing/edit-sheet/edit-sheet.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { EditSheetComponent } from './computing/edit-sheet/edit-sheet.component'
     AuthService,
     AuthGuard,
     WebRequestService,
+    //{ provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

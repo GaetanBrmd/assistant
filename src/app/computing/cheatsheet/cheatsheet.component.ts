@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { Sheet } from '../sheet.model';
@@ -11,6 +11,7 @@ import { HighlightService } from '../highlight.service';
   selector: 'app-cheatsheet',
   templateUrl: './cheatsheet.component.html',
   styleUrls: ['./cheatsheet.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CheatsheetComponent implements OnInit {
   sheets: Sheet[];

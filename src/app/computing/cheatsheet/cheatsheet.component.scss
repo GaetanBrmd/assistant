@@ -191,3 +191,24 @@ button > i {
   max-width: 100%;
   overflow-x: hidden;
 }
+
+/* Tables */
+
+table {
+  table-layout: auto;
+  width: 100%;
+}
+
+td,
+th {
+  word-wrap: break-word;
+  width: 4rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+th {
+  word-wrap: break-word;
+  background: #272822;
+  border-color: white;
+}

@@ -62,6 +62,12 @@ export class TypeService {
         bg: '#6f42c1',
         color: 'white',
       },
+      web: {
+        lang: 'Web',
+        icon: 'html5',
+        bg: '#6f42c1',
+        color: 'white',
+      },
     },
   ];
 
